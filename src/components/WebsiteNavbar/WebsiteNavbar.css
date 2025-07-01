@@ -1,0 +1,109 @@
+.logo{
+    color: var(--meesho-pink) !important;
+}
+
+/* Limit search bar width */
+.search-wrapper {
+  max-width: 150px;
+  width: 100%;
+}
+
+/* Input field */
+.search-input {
+  border-radius: 20px 0 0 20px;
+  border-right: none;
+  height:50px;
+  font-size: 14px;
+  border: 1px solid var(--meesho-pink);
+  outline: none;
+}
+
+/* Search icon button */
+.search-icon {
+  background-color: var(--meesho-pink);
+  color: white;
+  border-radius: 0 20px 20px 0;
+  border-left: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border: 1px solid var(--meesho-pink);
+  border-left: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0px;
+  height:50px;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect */
+.search-icon:hover {
+  background-color: rgb(140, 25, 120);
+  color: #fff;
+}
+
+.profile{
+    color: var(--meesho-pink) !important;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 100%; /* Below the profile icon */
+  left: 50%; /* Center horizontally */
+  transform: translateX(-50%); /* Perfectly center it */
+  margin-top: 12px;
+  min-width: 280px;
+  z-index: 1000;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+
+.custom-btn {
+  background-color: var(--meesho-pink) !important;
+  color: white !important;
+  border: solid !important;
+  border-radius: 10px !important;
+  transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+  background-color: rgb(255, 255, 255) !important;
+  color: var(--meesho-pink) !important;
+  border: 1px solid var(--meesho-pink) !important;
+transition: all 0.3s ease;
+}
+
+.custom-btn-secondary {
+  background-color: white !important;
+  border: 1px solid var(--meesho-pink) !important;
+  color: var(--meesho-pink) !important;
+  border-radius: 10px !important;
+  transition: all 0.3s ease;
+}
+
+.custom-btn-secondary:hover {
+  background-color: var(--meesho-pink) !important;
+  color: white !important;
+}
+
+.cart-count-badge {
+  font-size: 0.75rem;
+  padding: 4px 8px;
+  z-index: 10;
+}
