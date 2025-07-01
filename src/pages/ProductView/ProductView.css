@@ -1,0 +1,66 @@
+.product-view-container {
+   padding: 0 15px;
+   margin-top: calc(64px + 40px);
+  animation: fadeIn 0.6s ease-in;
+}
+
+/* Product Details Section */
+.product-details p {
+  margin-bottom: 0.5rem;
+}
+
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-controls .btn {
+  padding: 0.3rem 0.75rem;
+  font-size: 1rem;
+}
+
+.quantity-controls span {
+  min-width: 40px;
+  text-align: center;
+  font-weight: 500;
+  background: #f8f9fa;
+  border: 1px solid #ced4da;
+  line-height: 2.1;
+}
+
+/* Add to Cart Button */
+.add-to-cart-btn {
+  padding: 0.45rem 1.2rem;
+  font-size: 0.9rem;
+  margin-top: 1.5rem;
+}
+
+/* Similar Section */
+.similar-section {
+  margin-top: 4rem;
+}
+
+.similar-section h4 {
+  font-weight: 600;
+  margin-bottom: 1.25rem;
+}
+
+/* Hover animation for similar product cards */
+.hover-shadow:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
