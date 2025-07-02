@@ -60,7 +60,7 @@ const PaymentPage = () => {
 
   return (
     <div className="container my-5 position-relative">
-      <h3 className="fw-bold mb-4 text-center text-primary">3. Payment</h3>
+      <h3 className="fw-bold mb-4 text">3. Payment</h3>
 
       <div className="row g-4 align-items-center shadow-sm p-4 bg-white rounded">
         {/* Left Image */}
@@ -119,7 +119,7 @@ const PaymentPage = () => {
       {paymentSuccess && (
         <div className="text-center mt-5">
           <h4 className="text-success fw-bold animate__animated animate__fadeIn">
-            🎉 Payment Successful! Redirecting...
+             Payment Successful! Redirecting...
           </h4>
         </div>
       )}
