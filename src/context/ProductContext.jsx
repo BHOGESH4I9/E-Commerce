@@ -12,13 +12,13 @@ export const ProductProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [categoryThumbnails, setCategoryThumbnails] = useState({});
 
-  // ✅ Cart from localStorage
+  //Cart from localStorage
   const [cartItems, setCartItems] = useState(() => {
     const stored = localStorage.getItem('cartItems');
     return stored ? JSON.parse(stored) : [];
   });
 
-  // ✅ Addresses from localStorage
+  //Addresses from localStorage
   const [addresses, setAddresses] = useState(() => {
     const stored = localStorage.getItem('deliveryAddresses');
     return stored ? JSON.parse(stored) : [];
@@ -29,7 +29,7 @@ export const ProductProvider = ({ children }) => {
     return storedIndex ? Number(storedIndex) : 0;
   });
 
-  // ✅ Sync LocalStorage
+  //Sync LocalStorage
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
@@ -42,7 +42,7 @@ export const ProductProvider = ({ children }) => {
     localStorage.setItem('selectedAddressIndex', selectedAddressIndex);
   }, [selectedAddressIndex]);
 
-  // ✅ Cart Operations
+  //Cart Operations
   const addToCart = (product) => {
     setCartItems((prevCart) => {
       const existing = prevCart.find((item) => item.id === product.id);
@@ -72,7 +72,7 @@ export const ProductProvider = ({ children }) => {
     );
   };
 
-  // ✅ Address Operations
+  //Address Operations
   const addAddress = (newAddress) => {
     setAddresses((prev) => [...prev, newAddress]);
     setSelectedAddressIndex(addresses.length);
@@ -93,7 +93,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  // ✅ Fetch Products
+  //Fetch Products
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -110,7 +110,7 @@ export const ProductProvider = ({ children }) => {
     fetchAllProducts();
   }, []);
 
-  // ✅ Fetch Categories
+  //Fetch Categories
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -126,7 +126,7 @@ export const ProductProvider = ({ children }) => {
     fetchCategories();
   }, []);
 
-  // ✅ Handle Category Filtering
+  //Handle Category Filtering
   const handleCategoryClick = async (category) => {
     setSelectedCategory(category);
     if (category === 'All') {
@@ -147,7 +147,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  // ✅ Fetch Thumbnails
+  //Fetch Thumbnails
   useEffect(() => {
     const fetchCategoryThumbnails = async () => {
       const thumbnails = {};
@@ -171,6 +171,19 @@ export const ProductProvider = ({ children }) => {
     }
   }, [categories]);
 
+  const clearCart = () => {
+    setCartItems([]);
+    localStorage.removeItem('cartItems');
+  };
+
+  //Clear Address Function
+  const clearAddresses = () => {
+    setAddresses([]);
+    setSelectedAddressIndex(null);
+    localStorage.removeItem('deliveryAddresses');
+    localStorage.removeItem('selectedAddressIndex');
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -190,6 +203,7 @@ export const ProductProvider = ({ children }) => {
         addToCart,
         removeFromCart,
         updateQuantity,
+        clearCart,
 
         // Address
         addresses,
@@ -197,6 +211,7 @@ export const ProductProvider = ({ children }) => {
         deleteAddress,
         selectedAddressIndex,
         setSelectedAddressIndex,
+        clearAddresses 
       }}
     >
       {children}
