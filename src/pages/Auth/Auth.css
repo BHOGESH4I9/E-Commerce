@@ -1,0 +1,62 @@
+.auth-wrapper {
+  background-image: url('../../assets/login.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2rem;
+}
+
+/* Optional: Add an overlay for better readability */
+.auth-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(68, 68, 68, 0.479); 
+  z-index: 0;
+}
+
+.auth-card {
+  max-width: 420px;
+  width: 100%;
+  background-color: #ffffffee; 
+  border: none;
+  border-radius: 16px;
+  padding: 2rem;
+  z-index: 1;
+  position: relative;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.text-meesho {
+  color: var(--meesho-pink) !important;
+}
+
+
+.btn-meesho {
+  background-color: var(--meesho-pink) !important;
+  border-color: #d926a9;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  padding: 0.6rem 1.5rem;
+  transition: all 0.3s ease-in-out;
+}
+
+.btn-meesho:hover {
+  background-color: #b51e8e;
+  border-color: #b51e8e;
+  color: #fff;
+}
+
+.toast {
+  z-index: 9999;
+}
+
