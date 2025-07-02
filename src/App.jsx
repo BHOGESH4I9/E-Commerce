@@ -8,6 +8,7 @@ import CartPage from './pages/CartPage/CartPage.jsx'
 import ProductView from './pages/ProductView/ProductView.jsx'
 import Address from './pages/CartPage/Address.jsx'
 import PaymentPage from './pages/PaymentPage.jsx'
+import Contact from './components/Contact/Contact.jsx'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductPage />} />
           <Route path='/product/:id' element={<ProductView />} />
+          <Route path='/contact' element={<Contact />} />
           <Route path='/cart' element={<CartPage />} />
           <Route path="/checkout/address" element={<Address />} />
           <Route path="/checkout/payment" element={<PaymentPage />} />
