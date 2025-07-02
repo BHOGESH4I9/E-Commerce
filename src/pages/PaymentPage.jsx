@@ -3,26 +3,36 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import confetti from 'canvas-confetti';
 import securePayImage from '../assets/payment1.jpg'
+import { useProductContext } from '../context/ProductContext';
 
 const PaymentPage = () => {
+
+  const { clearCart, clearAddresses } = useProductContext();
+
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  
 
   const handleDummyPayment = (e) => {
-    e.preventDefault();
-    setLoading(true);
+  e.preventDefault();
+  setLoading(true);
+
+  setTimeout(() => {
+    setLoading(false);
+    setPaymentSuccess(true);
+    launchConfetti();
+
+
+    clearCart();
+    clearAddresses();
 
     setTimeout(() => {
-      setLoading(false);
-      setPaymentSuccess(true);
-      launchConfetti();
+      navigate('/');
+    }, 3000);
+  }, 2000);
+};
 
-      setTimeout(() => {
-        navigate('/');
-      }, 3000);
-    }, 2000);
-  };
 
   const launchConfetti = () => {
     const duration = 2 * 1000;
