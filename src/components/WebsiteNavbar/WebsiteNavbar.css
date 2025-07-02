@@ -48,9 +48,9 @@
 
 .profile-dropdown {
   position: absolute;
-  top: 100%; /* Below the profile icon */
-  left: 50%; /* Center horizontally */
-  transform: translateX(-50%); /* Perfectly center it */
+  top: 100%; 
+  left: 50%; 
+  transform: translateX(-50%); 
   margin-top: 12px;
   min-width: 280px;
   z-index: 1000;
@@ -61,7 +61,7 @@
   animation: fadeIn 0.3s ease-out;
 }
 
-/* Fade-in animation */
+
 @keyframes fadeIn {
   from {
     opacity: 0;
