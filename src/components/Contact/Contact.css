@@ -1,0 +1,73 @@
+.footer-section {
+  background-color: #f8f9fa;
+  color: #333;
+  font-size: 0.95rem;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+}
+
+/* Footer Logo */
+.footer-logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--meesho-pink);
+}
+
+/* Headings */
+.footer-section h5 {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #111;
+}
+
+/* List Styling */
+.footer-section .list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.footer-section .list-unstyled li {
+  margin-bottom: 0.5rem;
+}
+
+.footer-section .list-unstyled a {
+  color: #000; /* black by default */
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.footer-section .list-unstyled a:hover {
+  color: var(--meesho-pink); /* pink on hover */
+  text-decoration: underline;
+}
+
+/* Social Icons */
+.social-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 1rem;
+}
+
+.social-icons a {
+  font-size: 1.4rem;
+  color: #000; /* black icons */
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: var(--meesho-pink);
+}
+
+/* Horizontal Line */
+.footer-section hr {
+  margin: 2rem 0 1rem;
+  border-color: #ddd;
+}
+
+/* Bottom text */
+.footer-section p {
+  margin: 0;
+  text-align: center;
+  font-size: 0.85rem;
+}
