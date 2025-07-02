@@ -93,7 +93,7 @@ const Contact = () => {
             <div className="col-md-4 mb-4">
               <h5 className="fw-semibold">Quick Links</h5>
               <ul className="list-unstyled">
-                <li><a href="/" className="text-white text-decoration-none">Home</a></li>
+                <li><a href="/home" className="text-white text-decoration-none">Home</a></li>
                 <li><a href="/products" className="text-white text-decoration-none">Products</a></li>
                 <li><a href="/about" className="text-white text-decoration-none">About Us</a></li>
                 <li><a href="/contact" className="text-white text-decoration-none">Contact</a></li>
