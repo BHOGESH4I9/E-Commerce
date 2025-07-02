@@ -6,6 +6,8 @@ import WebsiteNavbar from './components/WebsiteNavbar/WebsiteNavbar.jsx'
 import ProductPage from './pages/Products/ProductPage.jsx'
 import CartPage from './pages/CartPage/CartPage.jsx'
 import ProductView from './pages/ProductView/ProductView.jsx'
+import Address from './pages/CartPage/Address.jsx'
+import PaymentPage from './pages/PaymentPage.jsx'
 
 function App() {
 
@@ -16,8 +18,10 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<ProductPage />} />
-          <Route path='/cart' element={<CartPage />} />
           <Route path='/product/:id' element={<ProductView />} />
+          <Route path='/cart' element={<CartPage />} />
+          <Route path="/checkout/address" element={<Address />} />
+          <Route path="/checkout/payment" element={<PaymentPage />} />
         </Routes>
       </main>
     </>
