@@ -10,7 +10,6 @@ import { Carousel } from 'bootstrap';
 import { useProductContext } from '../../context/ProductContext';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import ProductCard from '../../components/ProductCard/ProductCard';
-import Footer from '../../components/Footer/Footer';
 
 const Home = () => {
   const {
