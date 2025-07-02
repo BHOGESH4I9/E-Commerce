@@ -115,7 +115,7 @@ const PaymentPage = () => {
         </div>
       </div>
 
-      {/* Optional Success Banner (non-popup) */}
+      {/* Payment Success Banner */}
       {paymentSuccess && (
         <div className="text-center mt-5">
           <h4 className="text-success fw-bold animate__animated animate__fadeIn">
