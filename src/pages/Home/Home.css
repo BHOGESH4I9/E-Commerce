@@ -147,6 +147,69 @@
   color: var(--meesho-pink);
 }
 
+/* Hero Image Sizing */
+.hero-img {
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+  display: block;
+  filter: brightness(0.7);
+}
+
+@media (max-width: 991px) {
+  .hero-img {
+    height: 60vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-img {
+    height: 50vh;
+  }
+}
+
+/* Carousel Caption responsive alignment */
+.carousel-caption.hero-content {
+  position: absolute !important;
+  top: 55%;
+  left: 10%;
+  transform: translateY(-50%);
+  text-align: left;
+  z-index: 10;
+}
+
+@media (max-width: 576px) {
+  .carousel-caption.hero-content {
+    top: 60%;
+    left: 6%;
+    max-width: 90%;
+    text-align: left;
+  }
+
+  .hero-content h1 {
+    font-size: 1.6rem;
+  }
+
+  .hero-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Carousel Arrow Fix on Smaller Screens */
+.carousel-arrow {
+  top: 45%;
+}
+
+@media (max-width: 768px) {
+  .carousel-arrow.left {
+    left: -10px;
+  }
+
+  .carousel-arrow.right {
+    right: -10px;
+  }
+}
+
 /* Featured Section */
 .featured-section {
   display: flex;
