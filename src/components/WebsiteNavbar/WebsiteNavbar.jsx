@@ -35,7 +35,7 @@ const WebsiteNavbar = () => {
       <Navbar.Collapse id="main-navbar" className="justify-content-end">
         <Nav className="ms-auto align-items-center">
           <Nav.Link as={Link} to="/products">Shop</Nav.Link>
-          <Nav.Link as={Link} to="/wishlist">Wishlist</Nav.Link>
+          <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
           <Nav.Link as={Link} to="/cart" className="d-flex align-items-center gap-1 position-relative">
             <FaShoppingCart className="fs-5" />
             <span className="d-none d-sm-inline">Cart</span>
@@ -65,7 +65,7 @@ const WebsiteNavbar = () => {
             <Dropdown.Menu className="profile-dropdown text-center p-3">
               <h5 className="mb-1 fw-semibold text-dark">Hello User</h5>
               <p className="mb-3 text-muted" style={{ fontSize: '14px' }}>
-                To access your Meesho account
+                To access your ShopEase account
               </p>
 
               <Dropdown.Item
@@ -74,13 +74,6 @@ const WebsiteNavbar = () => {
                 className="mb-2 btn custom-btn w-100"
               >
                 Sign Up
-              </Dropdown.Item>
-              <Dropdown.Item
-                as={Link}
-                to="/orders"
-                className="btn custom-btn-secondary w-100"
-              >
-                My Orders
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
