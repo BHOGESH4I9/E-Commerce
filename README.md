@@ -13,7 +13,7 @@ A modern, responsive single-page e-commerce application built with React and Vit
 
 ## Demo & Hosting
 
-**Live Demo:** _[Add GitHub Pages/Vercel link here once deployed]_
+**Live Demo:** _[E Commerce](https://bhogesh4i9.github.io/E-Commerce/)
 
 ---
 
