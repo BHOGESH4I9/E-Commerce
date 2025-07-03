@@ -1,4 +1,7 @@
 {
-  "buildCommand": "npm install --include=dev && npm run build",
-  "outputDirectory": "dist"
+  "build": {
+    "env": {
+      "NODE_ENV": "development"
+    }
+  }
 }
