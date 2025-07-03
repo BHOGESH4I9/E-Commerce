@@ -11,7 +11,6 @@
   padding: 2rem;
 }
 
-/* Optional: Add an overlay for better readability */
 .auth-wrapper::before {
   content: "";
   position: absolute;
@@ -39,7 +38,6 @@
   color: var(--meesho-pink) !important;
 }
 
-
 .btn-meesho {
   background-color: var(--meesho-pink) !important;
   border-color: #d926a9;
@@ -59,4 +57,3 @@
 .toast {
   z-index: 9999;
 }
-
