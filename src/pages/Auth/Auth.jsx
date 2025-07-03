@@ -1,25 +1,43 @@
 import React, { useState } from 'react';
-import { Button, Form, Toast, Spinner } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom'; 
+import { Button, Form, Spinner, Toast } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 import './Auth.css';
 
 const AuthPage = () => {
   const [isRegister, setIsRegister] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [showToast, setShowToast] = useState(false);
-  const navigate = useNavigate(); 
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false); // ✅ Add this state
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const initialValues = {
+    name: '',
+    email: '',
+    password: '',
+  };
+
+  const validationSchema = Yup.object({
+    name: isRegister
+      ? Yup.string().required('Name is required').min(3, 'Min 3 characters')
+      : Yup.string(),
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    password: Yup.string()
+      .required('Password is required')
+      .min(6, 'Password must be at least 6 characters'),
+  });
+
+  const handleSubmit = (values, { resetForm }) => {
     setLoading(true);
 
     setTimeout(() => {
       setLoading(false);
       setToastMsg(isRegister ? 'Account created successfully!' : 'Login successful!');
       setShowToast(true);
+      resetForm();
 
-      
       setTimeout(() => {
         navigate('/');
       }, 1000);
@@ -27,47 +45,98 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="auth-wrapper d-flex align-items-center justify-content-center vh-100">
-      <div className="card p-4 auth-card shadow">
-        <h3 className="text-center text-meesho mb-3 fw-bold">
+    <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
+      <div className="card p-4 shadow auth-card" style={{ minWidth: '350px' }}>
+        <h3 className="text-center mb-4 fw-bold text-primary">
           {isRegister ? 'Register' : 'Login'}
         </h3>
 
-        <Form onSubmit={handleSubmit}>
-          {isRegister && (
-            <Form.Group className="mb-3">
-              <Form.Label>Full Name</Form.Label>
-              <Form.Control type="text" placeholder="Enter name" required />
-            </Form.Group>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+          enableReinitialize
+        >
+          {({
+            values,
+            handleChange,
+            handleSubmit,
+            errors,
+            touched,
+            handleBlur,
+          }) => (
+            <Form onSubmit={handleSubmit}>
+              {isRegister && (
+                <Form.Group className="mb-3">
+                  <Form.Label>Full Name</Form.Label>
+                  <Form.Control
+                    type="text"
+                    name="name"
+                    value={values.name}
+                    onChange={handleChange}
+                    onBlur={handleBlur}
+                    isInvalid={touched.name && !!errors.name}
+                    placeholder="Enter name"
+                  />
+                  <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                </Form.Group>
+              )}
+
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  type="email"
+                  name="email"
+                  value={values.email}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  isInvalid={touched.email && !!errors.email}
+                  placeholder="Enter email"
+                />
+                <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Group className="mb-2">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  value={values.password}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  isInvalid={touched.password && !!errors.password}
+                  placeholder="Enter password"
+                />
+                <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+              </Form.Group>
+
+              <Form.Check
+                type="checkbox"
+                label="Show Password"
+                className="mb-3"
+                checked={showPassword}
+                onChange={() => setShowPassword(!showPassword)}
+              />
+
+              <div className="d-grid mb-3">
+                <Button type="submit" disabled={loading} className="btn-primary fw-bold">
+                  {loading ? (
+                    <>
+                      <Spinner animation="border" size="sm" className="me-2" />
+                      Please wait...
+                    </>
+                  ) : isRegister ? 'Create Account' : 'Login'}
+                </Button>
+              </div>
+            </Form>
           )}
-
-          <Form.Group className="mb-3">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control type="email" placeholder="Enter email" required />
-          </Form.Group>
-
-          <Form.Group className="mb-4">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" placeholder="Password" required />
-          </Form.Group>
-
-          <div className="d-grid mb-3">
-            <Button type="submit" className="btn-meesho" disabled={loading}>
-              {loading ? (
-                <>
-                  <Spinner size="sm" animation="border" className="me-2" />
-                  Please wait...
-                </>
-              ) : isRegister ? 'Create Account' : 'Login'}
-            </Button>
-          </div>
-        </Form>
+        </Formik>
 
         <p className="text-center">
           {isRegister ? 'Already have an account?' : "Don't have an account?"}{' '}
           <span
-            className="text-meesho fw-bold"
-            style={{ cursor: 'pointer' }}
+            className="text-decoration-underline text-primary fw-bold"
+            role="button"
             onClick={() => setIsRegister(!isRegister)}
           >
             {isRegister ? 'Login' : 'Register'}
@@ -75,13 +144,14 @@ const AuthPage = () => {
         </p>
       </div>
 
-      
+      {/* Toast */}
       <Toast
-        className="position-fixed bottom-0 end-0 m-4 text-white bg-success"
         show={showToast}
         delay={3000}
         onClose={() => setShowToast(false)}
         autohide
+        bg="success"
+        className="position-fixed bottom-0 end-0 m-4 text-white"
       >
         <Toast.Body>{toastMsg}</Toast.Body>
       </Toast>
