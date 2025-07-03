@@ -7,8 +7,10 @@
   flex-direction: column;
   padding: 0;
   box-sizing: border-box;
+  background: none;
 }
 
+/* Toggle for mobile */
 .toggle-icon {
   background: var(--meesho-pink);
   color: #fff;
@@ -46,8 +48,12 @@
 }
 
 @keyframes iconRotate {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(90deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(90deg);
+  }
 }
 
 .sidebar {
@@ -89,6 +95,7 @@
   color: #e0e0e0;
 }
 
+/* Category Buttons */
 .category-btn {
   display: block;
   width: 100%;
@@ -122,11 +129,14 @@
   background: #444;
 }
 
-/* ✅ Responsive: Tablet and Mobile */
-@media (max-width: 768px) {
+/* Responsive: Tablet and Mobile */
+@media (max-width: 991px) {
   .categories-container {
     width: 100%;
     padding: 0 12px;
+    position: static;
+    top: unset;
+    height: auto;
   }
 
   .toggle-icon {
@@ -139,13 +149,12 @@
     position: static;
     width: 100%;
     border-radius: 8px;
-    top: unset;
-    left: unset;
     height: auto;
     max-height: none;
     overflow-y: visible;
     padding: 12px;
     margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   }
 
   .search-input {
