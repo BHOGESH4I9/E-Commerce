@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const ProductContext = createContext();
 export const useProductContext = () => useContext(ProductContext);
 
-// Custom debounce function
+// Debounce helper
 const debounce = (func, wait) => {
   let timeout;
   return (...args) => {
@@ -21,22 +21,25 @@ export const ProductProvider = ({ children }) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [categoryThumbnails, setCategoryThumbnails] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
+  const [activeAddressAccordionKey, setActiveAddressAccordionKey] = useState('');
 
   // Cart and Address states
   const [cartItems, setCartItems] = useState(() => {
     const stored = localStorage.getItem('cartItems');
     return stored ? JSON.parse(stored) : [];
   });
+
   const [addresses, setAddresses] = useState(() => {
     const stored = localStorage.getItem('deliveryAddresses');
     return stored ? JSON.parse(stored) : [];
   });
+
   const [selectedAddressIndex, setSelectedAddressIndex] = useState(() => {
     const storedIndex = localStorage.getItem('selectedAddressIndex');
     return storedIndex ? Number(storedIndex) : 0;
   });
 
-  // Sync LocalStorage
+  // Sync to LocalStorage
   useEffect(() => {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }, [cartItems]);
@@ -49,7 +52,7 @@ export const ProductProvider = ({ children }) => {
     localStorage.setItem('selectedAddressIndex', selectedAddressIndex);
   }, [selectedAddressIndex]);
 
-  // Search Products with category handling
+  // Search functionality
   const searchProducts = debounce(async (query) => {
     setSearchQuery(query);
     if (!query || query.trim() === '') {
@@ -62,13 +65,11 @@ export const ProductProvider = ({ children }) => {
     setLoading(true);
     try {
       const lowerQuery = query.toLowerCase();
-      // Check if query matches a category exactly
       const isCategory = categories
         .filter((cat) => cat !== 'All')
         .some((cat) => cat.toLowerCase() === lowerQuery);
 
       if (isCategory) {
-        // Fetch products for the category
         const res = await fetch(
           `https://dummyjson.com/products/category/${encodeURIComponent(query)}`
         );
@@ -81,7 +82,6 @@ export const ProductProvider = ({ children }) => {
           setSelectedCategory('Search');
         }
       } else {
-        // Local filtering for non-category queries
         const matched = allProducts.filter(
           (item) =>
             item.title?.toLowerCase().includes(lowerQuery) ||
@@ -100,12 +100,10 @@ export const ProductProvider = ({ children }) => {
     }
   }, 300);
 
-  // Get search suggestions (products and categories)
   const getSearchSuggestions = (query) => {
     if (!query || query.trim() === '') return [];
 
     const lowerQuery = query.toLowerCase();
-    // Filter products
     const productSuggestions = allProducts
       .filter(
         (item) =>
@@ -113,16 +111,12 @@ export const ProductProvider = ({ children }) => {
           item.description?.toLowerCase().includes(lowerQuery) ||
           item.category?.toLowerCase().includes(lowerQuery)
       )
-      .slice(0, 3) // Limit to 3 product suggestions
+      .slice(0, 3)
       .map((item) => ({ type: 'product', ...item }));
 
-    // Filter categories (exclude 'All')
     const categorySuggestions = categories
-      .filter(
-        (cat) =>
-          cat !== 'All' && cat.toLowerCase().includes(lowerQuery)
-      )
-      .slice(0, 2) // Limit to 2 category suggestions
+      .filter((cat) => cat !== 'All' && cat.toLowerCase().includes(lowerQuery))
+      .slice(0, 2)
       .map((cat) => ({
         type: 'category',
         name: cat,
@@ -132,7 +126,7 @@ export const ProductProvider = ({ children }) => {
     return [...categorySuggestions, ...productSuggestions];
   };
 
-  // Cart Operations
+  // Cart actions
   const addToCart = (product) => {
     setCartItems((prevCart) => {
       const existing = prevCart.find((item) => item.id === product.id);
@@ -148,9 +142,7 @@ export const ProductProvider = ({ children }) => {
   };
 
   const removeFromCart = (productId) => {
-    setCartItems((prevCart) =>
-      prevCart.filter((item) => item.id !== productId)
-    );
+    setCartItems((prevCart) => prevCart.filter((item) => item.id !== productId));
   };
 
   const updateQuantity = (productId, qty) => {
@@ -162,7 +154,7 @@ export const ProductProvider = ({ children }) => {
     );
   };
 
-  // Address Operations
+  // Address actions
   const addAddress = (newAddress) => {
     setAddresses((prev) => [...prev, newAddress]);
     setSelectedAddressIndex(addresses.length);
@@ -182,7 +174,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  // Fetch All Products
+  // Product fetching
   useEffect(() => {
     const fetchAllProducts = async () => {
       try {
@@ -192,7 +184,6 @@ export const ProductProvider = ({ children }) => {
         if (data.products) {
           setAllProducts(data.products);
           setFilteredProducts(data.products);
-          console.log(`Fetched ${data.products.length} products`);
         } else {
           throw new Error('Invalid product data');
         }
@@ -206,7 +197,7 @@ export const ProductProvider = ({ children }) => {
     fetchAllProducts();
   }, []);
 
-  // Fetch Categories
+  // Categories fetching
   useEffect(() => {
     const fetchCategories = async () => {
       try {
@@ -222,7 +213,6 @@ export const ProductProvider = ({ children }) => {
     fetchCategories();
   }, []);
 
-  // Handle Category Filtering
   const handleCategoryClick = async (category) => {
     setSelectedCategory(category);
     setSearchQuery('');
@@ -247,7 +237,7 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
-  // Fetch Thumbnails
+  // Fetch category thumbnails
   useEffect(() => {
     const fetchCategoryThumbnails = async () => {
       const thumbnails = {};
@@ -255,9 +245,7 @@ export const ProductProvider = ({ children }) => {
         if (category === 'All') continue;
         try {
           const res = await fetch(
-            `https://dummyjson.com/products/category/${encodeURIComponent(
-              category
-            )}?limit=1`
+            `https://dummyjson.com/products/category/${encodeURIComponent(category)}?limit=1`
           );
           const data = await res.json();
           if (data.products?.[0]) {
@@ -290,30 +278,43 @@ export const ProductProvider = ({ children }) => {
   return (
     <ProductContext.Provider
       value={{
+        // Products
         products: filteredProducts,
-        loading,
         allProducts,
+        loading,
         categories,
-        sidebarOpen,
-        setSidebarOpen,
-        handleCategoryClick,
         selectedCategory,
+        handleCategoryClick,
         categoryThumbnails,
+
+        // Search
         searchProducts,
         searchQuery,
         setSearchQuery,
         getSearchSuggestions,
+
+        // Sidebar
+        sidebarOpen,
+        setSidebarOpen,
+
+        // Cart
         cartItems,
         addToCart,
         removeFromCart,
         updateQuantity,
         clearCart,
+
+        // Addresses
         addresses,
         addAddress,
         deleteAddress,
         selectedAddressIndex,
         setSelectedAddressIndex,
         clearAddresses,
+
+        // Accordion UI state
+        activeAddressAccordionKey,
+        setActiveAddressAccordionKey,
       }}
     >
       {children}
