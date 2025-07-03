@@ -21,9 +21,10 @@ const Categories = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const handleResize = () => setIsMobileView(window.innerWidth < 768);
+    //Now supports both mobile and tablet
+    const handleResize = () => setIsMobileView(window.innerWidth < 992);
     window.addEventListener('resize', handleResize);
-    handleResize(); // initial run
+    handleResize(); // initial check
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
@@ -37,12 +38,12 @@ const Categories = () => {
   const handleClick = (category) => {
     handleCategoryClick(category);
     if (location.pathname !== '/products') navigate('/products');
-    if (isMobileView) setSidebarOpen(false); // auto-close sidebar on mobile
+    if (isMobileView) setSidebarOpen(false); 
   };
 
   return (
     <div className="categories-container">
-      {/* Only show toggle on mobile */}
+      {/* Show toggle on tablet + mobile */}
       {isMobileView && (
         <button
           className={`toggle-icon ${sidebarOpen ? 'active' : ''}`}
@@ -53,7 +54,7 @@ const Categories = () => {
         </button>
       )}
 
-      {/* Show sidebar based on screen/device */}
+      {/* Sidebar only visible when toggle is active or not mobile */}
       {(sidebarOpen || !isMobileView) && (
         <div className="sidebar">
           <h3 className="sidebar-title">Categories</h3>
