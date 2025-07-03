@@ -10,7 +10,7 @@ import { ProductProvider } from './context/ProductContext.jsx';
 
 createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-       <BrowserRouter>
+       <BrowserRouter basename="/E-Commerce">
        <ProductProvider>
           <App />
        </ProductProvider>
