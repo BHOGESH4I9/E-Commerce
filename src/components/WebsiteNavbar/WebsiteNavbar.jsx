@@ -16,12 +16,12 @@ const WebsiteNavbar = () => {
   const [showProfile, setShowProfile] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [expanded, setExpanded] = useState(false); // For toggling
   const { cartItems, searchProducts, getSearchSuggestions, setSearchQuery } = useProductContext();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const searchRef = useRef(null);
 
-  // Initialize searchText from URL query param
   useEffect(() => {
     const query = searchParams.get('search');
     if (query && query !== searchText) {
@@ -30,7 +30,6 @@ const WebsiteNavbar = () => {
     }
   }, [searchParams]);
 
-  // Handle clicks outside to close suggestions
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -47,11 +46,13 @@ const WebsiteNavbar = () => {
       searchProducts(searchText.trim());
       navigate(`/products?search=${encodeURIComponent(searchText.trim())}`);
       setShowSuggestions(false);
+      setExpanded(false); // Close navbar
     } else {
       setSearchQuery('');
       searchProducts('');
       navigate('/products');
       setShowSuggestions(false);
+      setExpanded(false); // Close navbar
     }
   };
 
@@ -61,6 +62,11 @@ const WebsiteNavbar = () => {
     searchProducts('');
     navigate('/products');
     setShowSuggestions(false);
+    setExpanded(false);
+  };
+
+  const handleNavClick = () => {
+    setExpanded(false); // close the menu
   };
 
   const handleInputChange = (e) => {
@@ -75,13 +81,20 @@ const WebsiteNavbar = () => {
     searchProducts(query);
     navigate(`/products?search=${encodeURIComponent(query)}`);
     setShowSuggestions(false);
+    setExpanded(false);
   };
 
   const suggestions = getSearchSuggestions(searchText);
 
   return (
-    <Navbar bg="light" expand="lg" fixed="top" className="shadow-sm px-5 py-3 w-100">
-      <Navbar.Brand as={Link} to="/" className="fw-bold logo me-4">
+    <Navbar
+      bg="light"
+      expand="lg"
+      fixed="top"
+      className="shadow-sm px-5 py-3 w-100"
+      expanded={expanded}
+    >
+      <Navbar.Brand as={Link} to="/" className="fw-bold logo me-4" onClick={handleNavClick}>
         ShopEase
       </Navbar.Brand>
 
@@ -156,12 +169,20 @@ const WebsiteNavbar = () => {
         )}
       </div>
 
-      <Navbar.Toggle aria-controls="main-navbar" />
+      <Navbar.Toggle
+        aria-controls="main-navbar"
+        onClick={() => setExpanded(!expanded)}
+      />
       <Navbar.Collapse id="main-navbar" className="justify-content-end">
         <Nav className="ms-auto align-items-center">
-          <Nav.Link as={Link} to="/products">Shop</Nav.Link>
-          <Nav.Link as={Link} to="/contact">Contact</Nav.Link>
-          <Nav.Link as={Link} to="/cart" className="d-flex align-items-center gap-1 position-relative">
+          <Nav.Link as={Link} to="/products" onClick={handleNavClick}>Shop</Nav.Link>
+          <Nav.Link as={Link} to="/contact" onClick={handleNavClick}>Contact</Nav.Link>
+          <Nav.Link
+            as={Link}
+            to="/cart"
+            className="d-flex align-items-center gap-1 position-relative"
+            onClick={handleNavClick}
+          >
             <FaShoppingCart className="fs-5" />
             <span className="d-none d-sm-inline">Cart</span>
             {cartItems.length > 0 && (
@@ -194,6 +215,7 @@ const WebsiteNavbar = () => {
                 as={Link}
                 to="/auth"
                 className="mb-2 btn custom-btn w-100"
+                onClick={handleNavClick}
               >
                 Sign Up
               </Dropdown.Item>
