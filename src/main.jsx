@@ -7,15 +7,12 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import { BrowserRouter } from 'react-router-dom';
 import { ProductProvider } from './context/ProductContext.jsx';
 
-
 createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-       <BrowserRouter basename="/E-Commerce">
-       <ProductProvider>
-          <App />
-       </ProductProvider>
-      </BrowserRouter>
-    </React.StrictMode>
-   
-  
+  <React.StrictMode>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <ProductProvider>
+        <App />
+      </ProductProvider>
+    </BrowserRouter>
+  </React.StrictMode>
 )
