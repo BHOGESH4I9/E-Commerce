@@ -3,14 +3,14 @@ import { Button, Form, Spinner, Toast } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import './Auth.css';
+import './Auth.css'; 
 
 const AuthPage = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [showToast, setShowToast] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [showPassword, setShowPassword] = useState(false); // ✅ Add this state
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const initialValues = {
@@ -45,9 +45,9 @@ const AuthPage = () => {
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
-      <div className="card p-4 shadow auth-card" style={{ minWidth: '350px' }}>
-        <h3 className="text-center mb-4 fw-bold text-primary">
+    <div className="auth-wrapper">
+      <div className="auth-card">
+        <h3 className="text-center mb-4 fw-bold text-meesho">
           {isRegister ? 'Register' : 'Login'}
         </h3>
 
@@ -78,7 +78,9 @@ const AuthPage = () => {
                     isInvalid={touched.name && !!errors.name}
                     placeholder="Enter name"
                   />
-                  <Form.Control.Feedback type="invalid">{errors.name}</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">
+                    {errors.name}
+                  </Form.Control.Feedback>
                 </Form.Group>
               )}
 
@@ -93,7 +95,9 @@ const AuthPage = () => {
                   isInvalid={touched.email && !!errors.email}
                   placeholder="Enter email"
                 />
-                <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  {errors.email}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Group className="mb-2">
@@ -107,7 +111,9 @@ const AuthPage = () => {
                   isInvalid={touched.password && !!errors.password}
                   placeholder="Enter password"
                 />
-                <Form.Control.Feedback type="invalid">{errors.password}</Form.Control.Feedback>
+                <Form.Control.Feedback type="invalid">
+                  {errors.password}
+                </Form.Control.Feedback>
               </Form.Group>
 
               <Form.Check
@@ -119,7 +125,7 @@ const AuthPage = () => {
               />
 
               <div className="d-grid mb-3">
-                <Button type="submit" disabled={loading} className="btn-primary fw-bold">
+                <Button type="submit" disabled={loading} className="btn-meesho">
                   {loading ? (
                     <>
                       <Spinner animation="border" size="sm" className="me-2" />
@@ -135,8 +141,8 @@ const AuthPage = () => {
         <p className="text-center">
           {isRegister ? 'Already have an account?' : "Don't have an account?"}{' '}
           <span
-            className="text-decoration-underline text-primary fw-bold"
-            role="button"
+            className="text-meesho fw-bold"
+            style={{ cursor: 'pointer' }}
             onClick={() => setIsRegister(!isRegister)}
           >
             {isRegister ? 'Login' : 'Register'}
@@ -144,14 +150,13 @@ const AuthPage = () => {
         </p>
       </div>
 
-      {/* Toast */}
       <Toast
         show={showToast}
         delay={3000}
         onClose={() => setShowToast(false)}
         autohide
         bg="success"
-        className="position-fixed bottom-0 end-0 m-4 text-white"
+        className="toast position-fixed bottom-0 end-0 m-4 text-white"
       >
         <Toast.Body>{toastMsg}</Toast.Body>
       </Toast>
